@@ -1,47 +1,34 @@
-const initState = {
-  name: "",
-  email: "",
-  isAuthenticated: false,
-  companyname: "",
-  employeeid: 0,
-  employee: [],
-  data:{},
+const initialState = {
+  isAuthenticate: false,
+  data: {
+    name: "",
+    email: "",
+    imageUrl: "",
+  },
 };
-export function reducer(state = initState, action) {
+
+export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case "SIGN_IN":
+    case "SIGNIN":
       return {
         ...state,
-        name: action.payload.name,
-        email: action.payload.email,
-        isAuthenticated: action.payload.isAuthenticated,
-      };
-    case "ADD_COMPANY":
-      return {
-        ...state,
-        companyname: action.companyname,
-      };
-    case "ADD_EMPLOYEE":
-      return {
-        ...state,
-        employee: state.employee.concat({
-          key: state.employeeid,
+        isAuthenticate: true,
+        data: {
           name: action.payload.name,
           email: action.payload.email,
-          role: action.payload.role,
-        }),
-        employeeid: state.employeeid + 1,
+          imageUrl: action.payload.imageUrl,
+        },
       };
-      case "SET_DATA":
-        return{
-          ...state,
-          data:action.payload,
-        }
-    case "LOGOUT":
+    case "SIGNOUT":
       return {
-        ...initState,
-      };
-
+        ...state,
+        isAuthenticate: false,
+        data: {
+          name: "",
+          email: "",
+          imageUrl: "",
+        },
+      }; 
     default:
       return { ...state };
   }
